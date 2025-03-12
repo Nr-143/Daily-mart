@@ -1,11 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
     FaShoppingCart, FaHeart, FaSignInAlt,
-    FaHome, FaClipboardList
+    FaHome, FaClipboardList, FaSearch
 } from 'react-icons/fa';
 
 const Navbar = () => {
+    const [query, setQuery] = useState('');
+    const navigate = useNavigate();
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (query.trim()) {
+            navigate(`/search?q=${query}`);
+        }
+    };
+
     return (
         <nav className="bg-white text-black fixed w-full z-50 shadow-md">
             <div className="container mx-auto flex justify-between items-center py-4 px-6">
@@ -13,11 +23,25 @@ const Navbar = () => {
                 {/* Logo */}
                 <Link
                     to="/"
-                    className="text-3xl font-extrabold tracking-wide"
-                    style={{ color: "#000", textShadow: '0px 0px 1px rgba(0,0,0,0.1)' }}
+                    className="text-2xl font-extrabold tracking-wide ml-[-11px]"
+                    style={{ color: "#ab1a1f", textShadow: '0px 0px 1px rgba(0,0,0,0.1)' }}
                 >
                     DailyMart
                 </Link>
+
+                {/* Search Box (Visible in Desktop) */}
+                <form onSubmit={handleSearch} className="hidden md:flex items-center bg-gray-100 px-11 py-2 rounded-full">
+                    <input
+                        type="text"
+                        placeholder="Search products..."
+                        className="bg-transparent outline-none text-black w-84"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
+                    <button type="submit" className="text-gray-600 hover:text-black transition">
+                        <FaSearch size={23} />
+                    </button>
+                </form>
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex space-x-6 items-center">
@@ -34,15 +58,28 @@ const Navbar = () => {
                 </div>
 
                 {/* Mobile Menu */}
-                <div className="md:hidden flex space-x-4 items-center">
-                    {[FaShoppingCart, FaHeart, FaSignInAlt].map((Icon, index) => (
+                <div className="md:hidden flex space-x-1  items-center mr-[-5px] h-50">
+                    <form onSubmit={handleSearch} className="relative">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            className="bg-gray-200 text-black px-2 py-1 rounded-full w-60"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                        />
+                        <button type="submit" className="absolute right-3 top-2 text-gray-600 hover:text-black">
+                            <FaSearch size={16} />
+                        </button>
+                    </form>
+{/* 
+                    {[].map((Icon, index) => (
                         <Link key={index} to="/">
                             <Icon
                                 size={24}
                                 className="text-black transition-transform duration-300 hover:scale-110 hover:text-sunset-orange"
                             />
                         </Link>
-                    ))}
+                    ))} */}
                 </div>
             </div>
 

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import groceryImg from "../../assets/vegetables.png";
-import clothesImg from "../../assets/dress.png";
-import electronicsImg from "../../assets/electricity.png";
-import footwearImg from "../../assets/shoes.png";
-import beautyImg from "../../assets/cosmetics.png";
-import homeImg from "../../assets/tableLamb.png";
-import booksImg from "../../assets/06.jpg";
-import toysImg from "../../assets/vegetables.png";
+import Groceries from "../../assets/Grocerie1.jpg";
+import clothesImg from "../../assets/clothes.jpg";
+import electronicsImg from "../../assets/electronics.jpg";
+import footwearImg from "../../assets/shoes1.jpg";
+import beautyImg from "../../assets/cosmetics1.jpg";
+import homeImg from "../../assets/homeAppliances.jpg";
+import booksImg from "../../assets/Books1.jpg";
+import toysImg from "../../assets/toys1.jpg";
 
 const categories = [
-    { name: 'Groceries', image: groceryImg, path: '/groceries' },
+    { name: 'Groceries', image: Groceries, path: '/groceries' },
     { name: 'Clothes', image: clothesImg, path: '/clothes' },
     { name: 'Electronics', image: electronicsImg, path: '/electronics' },
     { name: 'Footwear', image: footwearImg, path: '/footwear' },
@@ -22,7 +22,7 @@ const categories = [
 
 const CategoryCards = () => {
     return (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 rounded-lg">
             {categories.map((category, index) => (
                 <Link
                     key={index}
@@ -33,7 +33,7 @@ const CategoryCards = () => {
                     <img
                         src={category.image}
                         alt={category.name}
-                        className="rounded-t-lg h-40 w-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+                        className="rounded-t-lg h-[150px] w-[500px] mt-[10px] object-cover transform group-hover:scale-110 transition-transform duration-300"
                     />
 
                     {/* Category Name */}

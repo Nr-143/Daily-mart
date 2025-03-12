@@ -11,7 +11,6 @@ const HomePage = () => {
     return (
         <div className="bg-cloud-white min-h-screen">
             <HeroBanner />
-            <h1>h</h1>
             <div className="container mx-auto px-4 py-8">
                 <CategoryCards />
                 <FeaturedProducts />
