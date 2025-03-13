@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Groceries from "../../assets/Grocerie1.jpg";
-import clothesImg from "../../assets/clothes.jpg";
-import electronicsImg from "../../assets/electronics.jpg";
-import footwearImg from "../../assets/shoes1.jpg";
-import beautyImg from "../../assets/cosmetics1.jpg";
-import homeImg from "../../assets/homeAppliances.jpg";
-import booksImg from "../../assets/Books1.jpg";
+import Groceries from "../../assets/groceries.jpg";
+import clothesImg from "../../assets/clothes1.jpg";
+import electronicsImg from "../../assets/electronics1.jpg";
+import footwearImg from "../../assets/Shoes3.jpg";
+import beautyImg from "../../assets/beauty.jpg";
+import homeImg from "../../assets/Appliances.jpg";
+import booksImg from "../../assets/Books.jpg";
 import toysImg from "../../assets/toys1.jpg";
 
 const categories = [
