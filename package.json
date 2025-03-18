@@ -13,9 +13,8 @@
         "react-icons": "^5.5.0",
         "react-parallax-tilt": "^1.7.286",
         "react-router-dom": "^7.3.0",
-        "react-scripts": "5.0.1",
+        "react-scripts": "^5.0.1",
         "react-slick": "^0.30.3",
-        "react-tilt": "^1.0.2",
         "react-tsparticles": "^2.12.2",
         "slick-carousel": "^1.8.1",
         "tsparticles": "^3.8.1",
@@ -44,5 +43,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "@welldone-software/why-did-you-render": "^10.0.1"
     }
 }

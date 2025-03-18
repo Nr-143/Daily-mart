@@ -45,7 +45,7 @@ const Navbar = () => {
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex space-x-6 items-center">
-                    {["Home", "Orders", "Wishlist", "Cart", "Login"].map((item, index) => (
+                    {["Home", "products", "Wishlist", "Cart", "Login"].map((item, index) => (
                         <Link
                             key={index}
                             to={`/${item.toLowerCase()}`}
@@ -87,7 +87,7 @@ const Navbar = () => {
             <div className="md:hidden fixed bottom-0 w-full bg-white border-t border-gray-200 flex justify-around p-2 shadow-md">
                 {[
                     { icon: FaHome, label: "Home", path: "/" },
-                    { icon: FaClipboardList, label: "Orders", path: "/orders" },
+                    { icon: FaClipboardList, label: "products", path: "/products" },
                     { icon: FaShoppingCart, label: "Cart", path: "/cart" },
                     { icon: FaHeart, label: "Wishlist", path: "/wishlist" },
                     { icon: FaSignInAlt, label: "Login", path: "/login" }

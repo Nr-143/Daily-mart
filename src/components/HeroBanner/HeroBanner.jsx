@@ -2,13 +2,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { motion } from "framer-motion";
-import Tilt from "react-parallax-tilt";
-import { FaShoppingCart, FaGift, FaTag } from "react-icons/fa";
 import shoppingDiscuss from "../../assets/shoppingDiscuss.png";
 import exchange from "../../assets/exchange.png";
-import personWithProduct from "../../assets/personWithProduct.png";
-import personwithProduct2 from "../../assets/personwithProduct2.png";
-
+import personWithProduct from "../../assets/personwithProduct2.png";
 
 const HeroBanner = () => {
     const slides = [
@@ -17,7 +13,6 @@ const HeroBanner = () => {
             subtitle: "Shop everything you need at DailyMart!",
             buttonText: "Start Shopping",
             image: shoppingDiscuss,
-            textColor: "text-white",
             overlayColor: "bg-[#6A0DAD]/80",
             buttonColor: "bg-[#6A0DAD] hover:bg-[#5C0DA1]",
         },
@@ -26,7 +21,6 @@ const HeroBanner = () => {
             subtitle: "Hassle-free returns and quick refunds!",
             buttonText: "Exchange Now",
             image: exchange,
-            textColor: "text-white",
             overlayColor: "bg-[#FF6B35]/80",
             buttonColor: "bg-[#FF6B35] hover:bg-[#E65B28]",
         },
@@ -35,18 +29,8 @@ const HeroBanner = () => {
             subtitle: "Receive your products in just a few days!",
             buttonText: "Track Order",
             image: personWithProduct,
-            textColor: "text-white",
             overlayColor: "bg-[#3A3A3A]/80",
             buttonColor: "bg-[#3A3A3A] hover:bg-[#292929]",
-        },
-        {
-            title: "Wide Range of Products",
-            subtitle: "From electronics to groceries, we have it all!",
-            buttonText: "Explore Products",
-            image: personwithProduct2,
-            textColor: "text-white",
-            overlayColor: "bg-[#6495ED]/80",
-            buttonColor: "bg-[#6495ED] hover:bg-[#4A7DCB]",
         },
     ];
 
@@ -66,24 +50,28 @@ const HeroBanner = () => {
         <div className="relative bg-white min-h-[400px] overflow-hidden">
             <Slider {...settings}>
                 {slides.map((slide, index) => (
-                    <div key={index} className="relative h-[450px] w-full">
+                    <div key={index} className="relative h-[450px] w-full flex justify-center items-center">
                         {/* Image with Overlay */}
-                        <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} scale={1.05}>
-                            <motion.img
-                                src={slide.image}
-                                alt={slide.title}
-                                className="w-[900px] h-[350px] mt-[100px] ml-[300px] rounded-lg"
-                                initial={{ opacity: 0.3 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 1 }}
-                                loading="lazy"
-                            />
-                        </Tilt>
+                        <motion.img
+                            src={slide.image}
+                            alt={slide.title}
+                            className="w-[900px] h-[350px] rounded-lg object-cover shadow-lg"
+                            initial={{ opacity: 0.3 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1 }}
+                            loading="lazy"
+                            whileHover={{
+                                rotateX: 5,
+                                rotateY: 5,
+                                scale: 1.02,
+                                transition: { duration: 0.5 },
+                            }}
+                        />
 
                         {/* Overlay for Text Readability */}
                         <div className={`absolute inset-0 flex flex-col items-center justify-center text-center p-6 ${slide.overlayColor}`}>
                             <motion.h1
-                                className={`${slide.textColor} text-3xl md:text-5xl font-bold mb-4`}
+                                className="text-white text-3xl md:text-5xl font-bold mb-4"
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1 }}
@@ -116,7 +104,6 @@ const HeroBanner = () => {
                             >
                                 {slide.buttonText}
                             </motion.button>
-
                         </div>
                     </div>
                 ))}

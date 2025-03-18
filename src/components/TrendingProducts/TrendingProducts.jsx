@@ -68,20 +68,29 @@ const TrendingProducts = () => {
             <div className="relative">
                 <Slider {...settings}>
                     {products.map((product) => (
-                        <div key={product.id} className="bg-white shadow-lg rounded-lg p-4">
-                            <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded-lg" />
-                            <h3 className="text-lg font-semibold text-midnight-blue mt-2 truncate">{product.name}</h3>
-                            <p className="text-electric-purple font-bold">{product.price}</p>
-                            <div className="flex items-center text-yellow-500">
-                                <FaStar />
-                                <span className="ml-1 text-gray-700">{product.rating} ({product.reviews} reviews)</span>
+                        <div key={product.id} className="px-2"> {/* Adds spacing between slides */}
+                            <div className="bg-white shadow-lg rounded-lg p-4">
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="w-full h-40 object-cover rounded-lg"
+                                />
+                                <h3 className="text-lg font-semibold text-midnight-blue mt-2 truncate">
+                                    {product.name}
+                                </h3>
+                                <p className="text-electric-purple font-bold">{product.price}</p>
+                                <div className="flex items-center text-yellow-500">
+                                    <FaStar />
+                                    <span className="ml-1 text-gray-700">{product.rating} ({product.reviews} reviews)</span>
+                                </div>
+                                <button className="mt-3 bg-sunset-orange text-white py-2 px-4 rounded-lg w-full flex items-center justify-center hover:bg-opacity-80">
+                                    <FaShoppingCart className="mr-2" /> Add to Cart
+                                </button>
                             </div>
-                            <button className="mt-3 bg-sunset-orange text-white py-2 px-4 rounded-lg w-full flex items-center justify-center hover:bg-opacity-80">
-                                <FaShoppingCart className="mr-2" /> Add to Cart
-                            </button>
                         </div>
                     ))}
                 </Slider>
+
             </div>
         </div>
     );
