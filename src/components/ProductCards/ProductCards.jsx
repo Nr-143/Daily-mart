@@ -1,37 +1,60 @@
-import React from "react";
-import { FaShoppingCart, FaStar } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaShoppingCart, FaStar, FaHeart } from "react-icons/fa";
+import "./ProductCard.css"; // Import the CSS file
 
 const ProductCard = ({ product }) => {
+    const [isWishlisted, setIsWishlisted] = useState(false);
+
+    const toggleWishlist = () => {
+        setIsWishlisted(!isWishlisted);
+    };
+
+    const truncateText = (text, limit) => {
+        return text.length > limit ? text.substring(0, limit) + "..." : text;
+    };
     return (
-        <div className="bg-white shadow-lg rounded-lg p-4 flex flex-col justify-between h-[370px] w-full">
+        <div className="product-card">
+
+            <div className="wishlist-icon" onClick={toggleWishlist}>
+                <FaHeart className={isWishlisted ? "heart-icon wishlisted" : "heart-icon"} />
+            </div>
             {/* Product Image */}
-            <div className="w-full h-40 flex items-center justify-center bg-gray-100 rounded-lg">
+            <div className="product-image">
                 <img
                     src={product.image || "https://via.placeholder.com/150"}
                     alt={product.name}
-                    className="w-full h-full object-contain rounded-lg"
                     loading="lazy"
                 />
             </div>
 
             {/* Product Name */}
-            <h3 className="text-lg font-semibold text-midnight-blue mt-2 truncate">
-                {product.name.length > 22 ? product.name.substring(0, 22) + "..." : product.name}
+            <h3 className="product-name">
+                {product.name.length > 40 ? product.name.substring(0, 40) + "..." : product.name}
             </h3>
-
+            <p className="product-description">
+                {truncateText(product.description, 40)}
+            </p>
             {/* Price */}
-            <p className="text-electric-purple font-bold text-lg">${product.price}</p>
-
+            <p className="product-price">
+                {product.offerPrice ? (
+                    <>
+                        <span className="strike-price">${product.originalPrice}</span>
+                        <span className="offer-price"> ${product.offerPrice}</span>
+                    </>
+                ) : (
+                    `$${product.price}`
+                )}
+            </p>
             {/* Rating & Reviews */}
-            <div className="flex items-center text-yellow-500">
+            <div className="product-rating">
                 <FaStar />
-                <span className="ml-1 text-gray-700 text-sm">
+                <span>
                     {product.rating} ({product.reviews} reviews)
                 </span>
             </div>
 
             {/* Add to Cart Button */}
-            <button className="mt-2 bg-sunset-orange text-white py-2 px-4 rounded-lg w-full flex items-center justify-center hover:bg-opacity-80 transition">
+            <button className="add-to-cart-button">
                 <FaShoppingCart className="mr-2" /> Add to Cart
             </button>
         </div>

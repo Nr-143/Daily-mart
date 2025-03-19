@@ -1,0 +1,39 @@
+/* FiltersSidebar.css */
+.filters-sidebar {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 16rem; /* Adjust width as needed */
+    max-height: 100vh; /* Set maximum height to 90% of viewport height */
+    overflow-y: auto; /* Enable vertical scrollbar */
+    position: sticky;
+    top: 1rem; /* Stick to the top with some margin */
+}
+
+.filters-sidebar h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    margin-top: 2.5rem; /* Adjust top margin for spacing */
+}
+
+/* Optional: Style the scrollbar */
+.filters-sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.filters-sidebar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.filters-sidebar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.filters-sidebar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

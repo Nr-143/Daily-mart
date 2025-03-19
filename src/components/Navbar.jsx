@@ -44,11 +44,11 @@ const Navbar = () => {
                 </form>
 
                 {/* Desktop Menu */}
-                <div className="hidden md:flex space-x-6 items-center">
+                <div className="hidden md:flex space-x-12 items-center">
                     {["Home", "products", "Wishlist", "Cart", "Login"].map((item, index) => (
                         <Link
                             key={index}
-                            to={`/${item.toLowerCase()}`}
+                            to={`/${item.toLowerCase() === 'home' ? "" : item.toLowerCase() }`}
                             className="hover:text-sunset-orange transition-all duration-300 transform hover:scale-105"
                             style={{ color: "#000", fontWeight: "500" }}
                         >
