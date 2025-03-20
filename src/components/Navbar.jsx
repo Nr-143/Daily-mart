@@ -5,14 +5,15 @@ import {
     FaHome, FaClipboardList, FaSearch
 } from 'react-icons/fa';
 
-const Navbar = () => {
-    const [query, setQuery] = useState('');
+const Navbar = ({ setSearchQuery }) => {
+    const [query, setQuery] = useState("");
     const navigate = useNavigate();
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        if (query.trim()) {
-            navigate(`/search?q=${query}`);
+    const handleSearch = () => {
+        if (query.trim() !== "") {
+            console.log("query", query)
+            setSearchQuery(query);
+            navigate("/products"); // Redirect to the product listing page
         }
     };
 

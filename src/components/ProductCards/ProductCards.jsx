@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaStar, FaHeart } from "react-icons/fa";
 import "./ProductCard.css"; // Import the CSS file
 
 const ProductCard = ({ product }) => {
     const [isWishlisted, setIsWishlisted] = useState(false);
+    const navigate = useNavigate();
 
     const toggleWishlist = () => {
         setIsWishlisted(!isWishlisted);
@@ -13,7 +15,10 @@ const ProductCard = ({ product }) => {
         return text.length > limit ? text.substring(0, limit) + "..." : text;
     };
     return (
-        <div className="product-card">
+        <div className="product-card"
+            onClick={() => navigate(`/product/${product.id}`)} // Navigate to Product Details
+
+        >
 
             <div className="wishlist-icon" onClick={toggleWishlist}>
                 <FaHeart className={isWishlisted ? "heart-icon wishlisted" : "heart-icon"} />
