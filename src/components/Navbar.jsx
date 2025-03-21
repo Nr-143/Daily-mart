@@ -5,14 +5,15 @@ import {
     FaHome, FaClipboardList, FaSearch
 } from 'react-icons/fa';
 
-const Navbar = () => {
-    const [query, setQuery] = useState('');
+const Navbar = ({ setSearchQuery }) => {
+    const [query, setQuery] = useState("");
     const navigate = useNavigate();
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        if (query.trim()) {
-            navigate(`/search?q=${query}`);
+    const handleSearch = () => {
+        if (query.trim() !== "") {
+            console.log("query", query)
+            setSearchQuery(query);
+            navigate("/products"); // Redirect to the product listing page
         }
     };
 
@@ -44,11 +45,11 @@ const Navbar = () => {
                 </form>
 
                 {/* Desktop Menu */}
-                <div className="hidden md:flex space-x-6 items-center">
+                <div className="hidden md:flex space-x-12 items-center">
                     {["Home", "products", "Wishlist", "Cart", "Login"].map((item, index) => (
                         <Link
                             key={index}
-                            to={`/${item.toLowerCase()}`}
+                            to={`/${item.toLowerCase() === 'home' ? "" : item.toLowerCase() }`}
                             className="hover:text-sunset-orange transition-all duration-300 transform hover:scale-105"
                             style={{ color: "#000", fontWeight: "500" }}
                         >

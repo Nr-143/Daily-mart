@@ -3,7 +3,7 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
- theme: {
+  theme: {
     extend: {
       animation: {
         'gradient-move': 'gradientBG 10s ease-in-out infinite',
@@ -29,14 +29,14 @@ module.exports = {
           '100%': { transform: 'translateY(0)', opacity: 1 },
         }
       },
-       colors: {
+      colors: {
         'electric-purple': '#8A2BE2',
         'sunset-orange': '#FF4500',
         'midnight-blue': '#191970',
         'graphite-gray': '#2F4F4F',
         'soft-lavender': '#E6E6FA',
       },
-       fontFamily: {
+      fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
         montserrat: ['Montserrat', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
