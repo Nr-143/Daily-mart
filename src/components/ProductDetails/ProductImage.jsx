@@ -1,37 +1,51 @@
 import React, { useState } from "react";
 
-const ProductImage = ({ images, name, price }) => {
+const ProductImage = ({ images, name }) => {
     const [selectedImage, setSelectedImage] = useState(images[0]); // Default to first image
 
     return (
-        <span className="flex flex-col md:flex-row items-center md:items-start gap-4 relative">
-            {/* Thumbnails - Below on Mobile, Left on Desktop */}
-            <div className="flex md:flex-col space-x-2 md:space-x-0 md:space-y-2 
-                        mt-2 md:mt-0 max-w-[90vw] md:max-w-none md:max-h-[370px] 
-                        overflow-x-auto md:overflow-y-auto scrollbar-hide">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap- relative">
+
+            {/* Desktop: Thumbnails on the Left */}
+            <div className="hidden md:flex md:flex-col space-y-2 
+                            md:max-h-[400px] overflow-y-auto scrollbar-hide">
                 {images.map((img, index) => (
                     <img
                         key={index}
                         src={img}
                         alt={`${name} ${index + 1}`}
-                        className={`w-16 h-16 md:w-20 md:h-20 object-cover cursor-pointer border-2 
-                            ${selectedImage === img ? "border-blue-500" : "border-gray-300"} rounded-md`}
-                        onClick={() => setSelectedImage(img)} // Update main image on click
+                        className={`w-14 h-14 md:w-16 md:h-16 object-cover cursor-pointer border-2 
+                                    transition-all duration-200 rounded-md shadow-sm
+                                    ${selectedImage === img ? "border-[#6A0DAD] scale-105" : "border-gray-300 hover:border-[#FF6B35]"}`}
+                        onClick={() => setSelectedImage(img)} // Change main image on click
                     />
                 ))}
             </div>
 
-            {/* Big Main Image */}
-            <div className="flex-1">
+            {/* Main Product Image */}
+            <div className="flex flex-col items-center md:flex-1 h-[400px]">
                 <img
                     src={selectedImage}
                     alt={name}
-                    className="w-[97vw] h-[40vh] sm:h-[50vh] md:h-[60vh] max-w-md object-cover rounded-lg shadow-md"
+                    className="w-[90vw] h-[45vh] sm:h-[55vh] md:h-[60vh] max-w-md 
+                               object-cover rounded-lg shadow-md transition-opacity duration-300"
                 />
-            </div>
 
-    
-        </span>
+                {/* Mobile: Thumbnails Below - Only Shown in Mobile View */}
+                <div className="flex md:hidden mt-3 space-x-2 overflow-x-auto scrollbar-hide">
+                    {images.map((img, index) => (
+                        <img
+                            key={index}
+                            src={img}
+                            alt={`${name} ${index + 1}`}
+                            className={`w-12 h-12 object-cover cursor-pointer border-2 rounded-md 
+                                        ${selectedImage === img ? "border-[#6A0DAD] scale-105" : "border-gray-300 hover:border-[#FF6B35]"}`}
+                            onClick={() => setSelectedImage(img)}
+                        />
+                    ))}
+                </div>
+            </div>
+        </div>
     );
 };
 

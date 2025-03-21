@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import FiltersSidebar from "../components/FiltersSidebar/FiltersSidebar";
 import SortDropdown from "../components/SortDropdown/SortDropdown";
 import ProductCard from "../components/ProductCards/ProductCards";
+import LoaderWithMessage from "../components/Loader/LoaderWithMessage";
 
 const ProductListingPage = ({ searchQuery }) => {
     // State Management
@@ -104,7 +105,7 @@ const ProductListingPage = ({ searchQuery }) => {
 
                 {/* Product Grid */}
                 {loading ? (
-                    <p className="text-gray-500">Loading products...</p>
+                  <LoaderWithMessage />
                 ) : error ? (
                     <p className="text-red-500">{error}</p>
                 ) : (
