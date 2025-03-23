@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Lottie from "lottie-react";
-import shoppingAnimation from "../../assets/Animation - 1742575875401.json"; // Lottie animation file
+import shoppingAnimation from "../../assets/Animation - 1742618759364.json"; // Lottie animation file
 
 const funMessages = [
     "🛒 Adding extra savings just for you...",
@@ -29,14 +29,14 @@ const LoaderWithMessage = ({ size = "50px", color = "#6A0DAD" }) => {
             </div>
 
             {/* Spinner */}
-            <div
+            {/* <div
                 className="animate-spin rounded-full border-8 border-blue-900 border-t-4 ease-linear mt-4"
                 style={{
                     width: "50px",
                     height: "50px",
                     borderTopColor: "orange",
                 }}
-            ></div>
+            ></div> */}
 
             {/* Fun Messages */}
             <p className="mt-6 text-gray-800 text-lg font-semibold text-center px-6 italic tracking-wide">

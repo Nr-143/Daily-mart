@@ -26,3 +26,30 @@ html, body {
 html::-webkit-scrollbar, body::-webkit-scrollbar {
     display: none;
 }
+/* Custom Scrollbar - DailyMart */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 10px; /* Standard width */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #F9F9F9; /* Soft white background for a clean look */
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        to bottom, 
+        #6A0DAD, #FF6B35
+    ); /* Electric Purple to Sunset Orange gradient */
+    border-radius: 50px; /* Oval shape */
+    border: 2px solid #1B1F3B; /* Midnight Blue outline */
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2); /* Soft inner shadow */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+        to bottom, 
+        #4c0b79, #e85d28
+    ); /* Slightly darker gradient on hover */
+    box-shadow: inset 3px 3px 7px rgba(0,0,0,0.3);
+}

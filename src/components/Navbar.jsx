@@ -19,7 +19,7 @@ const Navbar = ({ setSearchQuery }) => {
 
     return (
         <nav className="bg-white text-black fixed w-full z-50 shadow-md">
-            <div className="container mx-auto flex justify-between items-center py-4 px-6">
+            <div className="container mx-auto flex justify-between items-center py-2 px-6">
 
                 {/* Logo */}
                 <Link

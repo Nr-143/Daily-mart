@@ -31,7 +31,14 @@ const exampleProducts = [
         reviews: 120,
         images: [defaultImage1, defaultImage2, defaultImage3, defaultImage4], // Array of images
         description: "A stunning 6.7-inch display with A16 Bionic chip.",
-        comments: [
+        highlights: [
+            { "feature": "7 days Replacement", "icon": "FaRedoAlt" },
+            { "feature": "Free Delivery", "icon": "FaShippingFast" },
+            { "feature": "1 Year Warranty", "icon": "FaShieldAlt" },
+            { "feature": "Pay on Delivery", "icon": "FaMoneyBillWave" },
+            { "feature": "Top Brand", "icon": "FaAward" },
+            { "feature": "EMI Available", "icon": "FaCreditCard" }
+        ],comments: [
             {
                 user: "John Doe",
                 avatar: userAvatar,
@@ -39,6 +46,30 @@ const exampleProducts = [
                 date: "2024-03-15",
                 text: "Amazing phone!",
                 images: [defaultImage1, defaultImage2],
+            },
+            {
+                user: "Alice",
+                avatar: userAvatar,
+                rating: 4,
+                date: "2024-03-10",
+                text: "Great but expensive.",
+                images: [],
+            },
+            {
+                user: "Alice",
+                avatar: userAvatar,
+                rating: 4,
+                date: "2024-03-10",
+                text: "Great but expensive.",
+                images: [],
+            },
+            {
+                user: "Alice",
+                avatar: userAvatar,
+                rating: 4,
+                date: "2024-03-10",
+                text: "Great but expensive.",
+                images: [],
             },
             {
                 user: "Alice",
@@ -189,7 +220,7 @@ const ProductDetailsPage = () => {
                         description="Industry-leading noise cancellation, 30-hour battery life, and Hi-Res audio support."
                         price={29999}
                         brand="Sony"
-                        warranty={24}  // 24 months warranty
+                        warranty={24} // 24 months warranty
                         availability="in-stock"
                         deliveryDays={3}
                         address="Mumbai, Maharashtra, India"
@@ -214,7 +245,17 @@ const ProductDetailsPage = () => {
                         discount={10}
                         offerEndTime="March 25, 2025 23:59:59" // Pass valid date & time
                         sellerInfo="Nirmal, dailyMart Pvt Ltd , Coimbatore"
+                        highlights={[
+                            { "feature": "7 Days Replacement", "icon": "FaRedoAlt" },
+                            { "feature": "Free Delivery", "icon": "FaShippingFast" },
+                            { "feature": "1 Year Warranty", "icon": "FaShieldAlt" },
+                            { "feature": "Pay on Delivery", "icon": "FaMoneyBillWave" },
+                            { "feature": "Top Brand", "icon": "FaAward" },
+                            { "feature": "EMI Available", "icon": "FaCreditCard" }
+                        ]}
                     />
+
+                    
 
 
                     {/* Delivery Details - Mobile (Below Specifications) */}

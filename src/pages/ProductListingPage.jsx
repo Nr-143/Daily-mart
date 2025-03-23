@@ -109,7 +109,7 @@ const ProductListingPage = ({ searchQuery }) => {
                 ) : error ? (
                     <p className="text-red-500">{error}</p>
                 ) : (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-y-auto scrollbar-hide h-[72vh]">
+                    <div className="grid grid-cols-2  md:ml-[-30px] md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-y-auto scrollbar-hide h-[72vh]">
                         {products.length > 0 ? (
                             products.map((product) => <ProductCard key={product.id} product={product} />)
                         ) : (
