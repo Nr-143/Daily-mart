@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import FiltersSidebar from "../components/FiltersSidebar/FiltersSidebar";
 import SortDropdown from "../components/SortDropdown/SortDropdown";
 import ProductCard from "../components/ProductCards/ProductCards";
 import LoaderWithMessage from "../components/Loader/LoaderWithMessage";
 
 const ProductListingPage = ({ searchQuery }) => {
-    // State Management
+    const { category } = useParams(); // Get category from URL
     const [filters, setFilters] = useState({
-        category: "",
+        category: category || "",
         price: [0, 1000],
         rating: "",
         brand: "",
         availability: "",
-        discount: ""
+        discount: "",
     });
-
 
     const [sort, setSort] = useState("popularity");
     const [products, setProducts] = useState([]);
@@ -40,7 +40,15 @@ const ProductListingPage = ({ searchQuery }) => {
         try {
             // Simulate API delay
             await new Promise((resolve) => setTimeout(resolve, 500));
-            setProducts(exampleProducts);
+
+            // Filter example products based on category
+            let filteredProducts = exampleProducts;
+
+            if (filters.category) {
+                filteredProducts = filteredProducts.filter(product => product.category.toLowerCase() === filters.category.toLowerCase());
+            }
+
+            setProducts(filteredProducts);
         } catch (err) {
             setError("Failed to load products.");
         }
@@ -54,14 +62,16 @@ const ProductListingPage = ({ searchQuery }) => {
         setError(null);
 
         try {
-            // Simulate API delay
             await new Promise((resolve) => setTimeout(resolve, 500));
 
-            // Filter example products based on search query
-            const filteredProducts = exampleProducts.filter((product) =>
+            // Filter example products based on search query & category
+            let filteredProducts = exampleProducts.filter((product) =>
                 product.name.toLowerCase().includes(query.toLowerCase())
             );
-            console.log("searchQuery", searchQuery)
+
+            if (filters.category) {
+                filteredProducts = filteredProducts.filter(product => product.category.toLowerCase() === filters.category.toLowerCase());
+            }
 
             setProducts(filteredProducts);
         } catch (err) {
@@ -73,16 +83,19 @@ const ProductListingPage = ({ searchQuery }) => {
 
     // useEffect to Fetch Data
     useEffect(() => {
+        setFilters((prevFilters) => ({
+            ...prevFilters,
+            category: category || "",
+        }));
+
         (async () => {
             if (searchQuery) {
-                console.log("searchQuery", searchQuery)
                 await searchProducts(searchQuery);
             } else {
-                await fetchProducts(filters);
+                await fetchProducts();
             }
         })();
-    }, [searchQuery, filters, sort]); // Dependencies
-
+    }, [searchQuery, category]); // ✅ Added `category` as a dependency
     return (
         <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row">
             {/* Sidebar (Filters) */}
@@ -93,9 +106,9 @@ const ProductListingPage = ({ searchQuery }) => {
             {/* Main Content */}
             <div className="md:w-3/4 flex flex-col">
                 {/* Top Controls - Sticky */}
-                <div className="sticky top-0 bg-white z-10 py-4 flex justify-between items-center">
+                <div className="sticky top-1 bg-white z-10 py-4 flex justify-between items-center">
                     <button
-                        className="md:hidden bg-electric-purple text-white px-4 py-2 rounded-lg"
+                        className="md:hidden bg-electric-purple text-white px-4 py-2 rounded-lg mt-[20px]"
                         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                     >
                         {isSidebarOpen ? "Close Filters" : "Open Filters"}
@@ -105,16 +118,15 @@ const ProductListingPage = ({ searchQuery }) => {
 
                 {/* Product Grid */}
                 {loading ? (
-                  <LoaderWithMessage />
+                    <LoaderWithMessage />
                 ) : error ? (
                     <p className="text-red-500">{error}</p>
                 ) : (
-                    <div className="grid grid-cols-2  md:ml-[-30px] md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-y-auto scrollbar-hide h-[72vh]">
-                        {products.length > 0 ? (
-                            products.map((product) => <ProductCard key={product.id} product={product} />)
-                        ) : (
-                            <p className="text-gray-500">No products found.</p>
-                        )}
+                    <div className="grid grid-cols-2  md:ml-[-30px] md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-y-auto scrollbar-hide h-[72vh]">                        {products.length > 0 ? (
+                        products.map((product) => <ProductCard key={product.id} product={product} />)
+                    ) : (
+                        <p className="text-gray-500">No products found.</p>
+                    )}
                     </div>
                 )}
             </div>

@@ -26,30 +26,65 @@ html, body {
 html::-webkit-scrollbar, body::-webkit-scrollbar {
     display: none;
 }
-/* Custom Scrollbar - DailyMart */
+/* * Modern E-Commerce Scrollbar - DailyMart */ */
 .custom-scrollbar::-webkit-scrollbar {
-    width: 10px; /* Standard width */
+    width: 8px;
+    height: 8px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    background: #F9F9F9; /* Soft white background for a clean look */
+    background: rgba(245, 245, 245, 0.9);
     border-radius: 10px;
+    margin: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: linear-gradient(
-        to bottom, 
-        #6A0DAD, #FF6B35
-    ); /* Electric Purple to Sunset Orange gradient */
-    border-radius: 50px; /* Oval shape */
-    border: 2px solid #1B1F3B; /* Midnight Blue outline */
-    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2); /* Soft inner shadow */
+        to bottom,
+        rgba(106, 13, 173, 0.8),
+        rgba(255, 107, 53, 0.8)
+    );
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background-clip: padding-box;
+    transition: all 0.2s ease-out;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(
-        to bottom, 
-        #4c0b79, #e85d28
-    ); /* Slightly darker gradient on hover */
-    box-shadow: inset 3px 3px 7px rgba(0,0,0,0.3);
+        to bottom,
+        rgba(106, 13, 173, 1),
+        rgba(255, 107, 53, 1)
+    );
+    transform: scaleX(1.1);
+}
+
+.custom-scrollbar::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* Firefox Support */
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(106, 13, 173, 0.8) rgba(245, 245, 245, 0.9);
+}
+
+/* Micro-interactions */
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(
+        to bottom,
+        rgba(90, 11, 157, 1),
+        rgba(230, 91, 37, 1)
+    );
+    transform: scaleX(1.15);
+}
+
+/* Smooth appear animation */
+@keyframes smooth-scrollbar {
+    from { opacity: 0; transform: scaleX(0.8); }
+    to { opacity: 1; transform: scaleX(1); }
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    animation: smooth-scrollbar 0.3s ease-out;
 }

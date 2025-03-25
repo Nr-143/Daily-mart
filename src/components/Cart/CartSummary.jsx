@@ -9,7 +9,7 @@ const CartSummary = ({ cartItems, selectedItems }) => {
     const totalPrice = filteredItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
     return (
-        <div className="p-6 bg-white  h-[510px] ">
+        <div className="p-6 bg-white  ">
             <h2 className="text-xl font-bold flex items-center gap-2 text-[#1B1F3B]">
                 <FaShoppingCart className="text-[#FF6B35]" /> Cart Summary
             </h2>

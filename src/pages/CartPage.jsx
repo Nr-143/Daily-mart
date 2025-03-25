@@ -45,7 +45,7 @@ const CartPage = () => {
     if (loading) return <LoaderWithMessage message="Loading your cart items..." />;
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4   ">
             <h1 className="text-2xl font-bold mt-[45px]">/ Cart</h1>
 
             {/* Mobile View: Cart Summary Fixed at Bottom */}
