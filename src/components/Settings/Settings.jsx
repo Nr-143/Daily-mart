@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { FaUser, FaMapMarkerAlt, FaBox, FaQuestionCircle, FaCreditCard, FaSignOutAlt } from "react-icons/fa";
 import AccountSettings from "./AccountSettings";
-import AddressSettings from "./AddressSettings";
+import AddressSettings from "./AddressSettings/AddressSettings";
 import OrderHistory from "./OrderHistory";
-import HelpSupport from "./HelpSupport";
+import HelpSupport from "./HelpSupport/HelpSupport";
 import PaymentMethods from "./PaymentMethods";
 
 const Settings = () => {
@@ -33,7 +33,7 @@ const Settings = () => {
     return (
         <div className="flex flex-col md:flex-row h-screen ">
             {/* Sidebar for Desktop */}
-            <aside className="hidden md:flex flex-col w-1/4 bg-graphite-gray text-white p-6">
+            <aside className="hidden md:flex flex-col w-1/4 bg-graphite-gray text-white p-2">
                 <h2 className="text-xl font-bold mb-4">Settings</h2>
                 <nav className="flex flex-col gap-3">
                     {menuItems.map(({ id, icon: Icon, label }) => (
@@ -52,10 +52,10 @@ const Settings = () => {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-6 mt-[40px]">{renderTabContent()}</main>
+            <main className="flex-1 p-1 mt-[40px]">{renderTabContent()}</main>
 
             {/* Bottom Navigation for Mobile */}
-            <div className="md:hidden fixed bottom-0 w-full bg-white border-t border-gray-200 flex justify-around p-2 shadow-md mb-[60px]">
+            <div className="md:hidden fixed bottom-0 w-full bg-white border-t border-gray-200 flex justify-around p-1 shadow-md mb-[60px]">
                 {menuItems.map(({ id, icon: Icon }) => (
                     <button
                         key={id}
