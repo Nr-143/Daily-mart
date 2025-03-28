@@ -3,8 +3,6 @@ import { FiPhone, FiMail, FiMessageSquare, FiChevronDown, FiChevronUp } from "re
 
 const HelpSupport = () => {
     const [activeIndex, setActiveIndex] = useState(null);
-    const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const faqData = [
         { question: "How can I track my order?", answer: "You can track your order from 'My Orders' in your profile." },
@@ -17,27 +15,20 @@ const HelpSupport = () => {
 
     const toggleFAQ = (index) => setActiveIndex(activeIndex === index ? null : index);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setIsSubmitted(true);
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setIsSubmitted(false), 3000);
+    const handleContactClick = (method) => {
+        // This would open your chat popup/page in a real implementation
+        console.log(`Initiate ${method} contact`);
+        // window.openChatPopup() or similar function would go here
     };
 
     return (
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 min-h-screen">
-            {/* Header */}
-            {/* <section className="text-center mb-8">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">Need Help?</h2>
-                <p className="text-lg text-gray-600 max-w-xl mx-auto">Find quick answers or contact our support team.</p>
-            </section> */}
-
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 pb-20 md:pb-8">
             {/* Main Content */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* FAQ Section */}
+                {/* FAQ Section - Takes 2/3 width on desktop, full on mobile */}
                 <div className="lg:col-span-2 bg-white shadow-lg rounded-xl p-6">
-                    <h3 className="text-2xl font-semibold text-gray-800 mb-4">Frequently Asked Questions</h3>
-                    <div className="space-y-3">
+                    <h3 className="text-2xl font-semibold text-gray-800 mb-6">Frequently Asked Questions</h3>
+                    <div className="space-y-4">
                         {faqData.map((item, index) => (
                             <div
                                 key={index}
@@ -48,22 +39,31 @@ const HelpSupport = () => {
                                     onClick={() => toggleFAQ(index)}
                                 >
                                     <span className="font-medium text-gray-800">{item.question}</span>
-                                    {activeIndex === index ? <FiChevronUp className="text-blue-500" /> : <FiChevronDown className="text-gray-500" />}
+                                    {activeIndex === index ? (
+                                        <FiChevronUp className="text-blue-500" />
+                                    ) : (
+                                        <FiChevronDown className="text-gray-500" />
+                                    )}
                                 </button>
-                                {activeIndex === index && <div className="p-4 text-gray-600 bg-gray-50">{item.answer}</div>}
+                                {activeIndex === index && (
+                                    <div className="p-4 text-gray-600 bg-gray-50">{item.answer}</div>
+                                )}
                             </div>
                         ))}
                     </div>
                 </div>
 
-                {/* Contact & Form Section */}
-                <div className="space-y-3">
-                    {/* Contact Options */}
+                {/* Contact Section - Takes 1/3 width on desktop, full on mobile */}
+                <div className="space-y-6">
                     <div className="bg-white shadow-lg rounded-xl p-6">
-                        <h3 className="text-2xl font-semibold text-gray-800 mb-4">Contact Us</h3>
+                        <h3 className="text-2xl font-semibold text-gray-800 mb-6">Contact Options</h3>
                         <div className="space-y-4">
-                            <div className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blue-400 transition">
-                                <div className="bg-blue-100 p-3 rounded-full mr-4">
+                            {/* Phone Option */}
+                            <button
+                                onClick={() => handleContactClick('phone')}
+                                className="w-full flex items-start p-4 border border-gray-200 rounded-lg hover:border-blue-400 transition text-left"
+                            >
+                                <div className="bg-blue-100 p-3 rounded-full mr-4 flex-shrink-0">
                                     <FiPhone className="text-blue-600 text-xl" />
                                 </div>
                                 <div>
@@ -71,9 +71,14 @@ const HelpSupport = () => {
                                     <p className="text-gray-600">+91 98765 43210</p>
                                     <p className="text-sm text-gray-500">24/7 available</p>
                                 </div>
-                            </div>
-                            <div className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-green-400 transition">
-                                <div className="bg-green-100 p-3 rounded-full mr-4">
+                            </button>
+
+                            {/* Email Option */}
+                            <button
+                                onClick={() => handleContactClick('email')}
+                                className="w-full flex items-start p-4 border border-gray-200 rounded-lg hover:border-green-400 transition text-left"
+                            >
+                                <div className="bg-green-100 p-1 rounded-full mr-4 flex-shrink-0">
                                     <FiMail className="text-green-600 text-xl" />
                                 </div>
                                 <div>
@@ -81,17 +86,21 @@ const HelpSupport = () => {
                                     <p className="text-gray-600">support@dailymart.com</p>
                                     <p className="text-sm text-gray-500">Response within 24 hours</p>
                                 </div>
-                            </div>
-                            <div className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-purple-400 transition">
-                                <div className="bg-purple-100 p-3 rounded-full mr-4">
+                            </button>
+
+                            {/* Live Chat Option */}
+                            <button
+                                onClick={() => handleContactClick('chat')}
+                                className="w-full flex items-start p-4 border border-gray-200 rounded-lg hover:border-purple-400 transition text-left"
+                            >
+                                <div className="bg-purple-100 p-3 rounded-full mr-4 flex-shrink-0">
                                     <FiMessageSquare className="text-purple-600 text-xl" />
                                 </div>
                                 <div>
                                     <h4 className="font-medium text-gray-800">Live Chat</h4>
-                                    <p className="text-gray-600">Click the chat button</p>
                                     <p className="text-sm text-gray-500">9 AM - 9 PM daily</p>
                                 </div>
-                            </div>
+                            </button>
                         </div>
                     </div>
                 </div>

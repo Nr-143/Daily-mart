@@ -45,7 +45,7 @@ const AccountSettings = () => {
 
     return (
         <div className="max-w-4xl mx-auto p-2 md:p-3 lg:p-1">
-            <div className="bg-white rounded-xl  shadow-md overflow-scroll custom-scrollbar scrollbar-x-hidden md:max-h-[580px] h-[750px]">
+            <div className="bg-white rounded-xl mt-[20px]  shadow-md overflow-scroll custom-scrollbar scrollbar-x-hidden md:max-h-[580px] h-[720px]">
                 {/* Header */}
                 <div className="bg-gradient-to-r from-electric-purple to-midnight-blue p-2 text-white">
                     <h1 className="text-2xl md:text-3xl font-bold">Account Settings</h1>

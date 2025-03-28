@@ -325,7 +325,7 @@ const AddressSettings = () => {
                 </div>
 
                 {/* Mobile map toggle */}
-                <div className="md:hidden p-3 border-t border-gray-200">
+                <div className="md:hidden p-3 border-t border-gray-200 mb-[20px]">
                     <button
                         onClick={toggleMapVisibility}
                         className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 text-gray-800 rounded transition-colors"

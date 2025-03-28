@@ -1,85 +1,89 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link for navigation
-import { FaTrashAlt, FaClock } from "react-icons/fa";
+import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { FaTrashAlt, FaClock, FaCheck } from "react-icons/fa";
 
 const CartItem = ({ item, updateQuantity, removeItem, handleSelection, isSelected }) => {
     const [timeLeft, setTimeLeft] = useState("");
 
-    useEffect(() => {
-        const updateTimer = () => {
-            if (!item.offerEnd) return;
-            const now = new Date();
-            const offerEndTime = new Date(item.offerEnd);
-            const diff = offerEndTime - now;
-            if (diff > 0) {
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff / (1000 * 60)) % 60);
-                setTimeLeft(`${hours}h ${minutes}m left`);
-            } else {
-                setTimeLeft("Offer expired");
-            }
-        };
+    // Function to calculate offer time left
+    const calculateTimeLeft = useCallback(() => {
+        if (!item.offerEnd) return "";
 
-        updateTimer();
-        const timer = setInterval(updateTimer, 60000);
-        return () => clearInterval(timer);
+        const now = new Date();
+        const offerEndTime = new Date(item.offerEnd);
+        const diff = offerEndTime - now;
+
+        if (diff > 0) {
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            return `${hours}h ${minutes}m left`;
+        }
+        return "Offer expired";
     }, [item.offerEnd]);
 
-    return (
-        <div className="flex items-start gap-3 p-3 border-b hover:bg-gray-50 transition-all rounded-md">
-            {/* Checkbox for Selection */}
-            <label className="flex items-center cursor-pointer mt-2">
-                <input
-                    type="checkbox"
-                    checked={isSelected}
-                    onChange={(e) => handleSelection(item.id, e.target.checked)}
-                    className="hidden"
-                />
-                <span
-                    className={`w-5 h-5 flex items-center justify-center rounded border-2 border-black-400 
-                    ${isSelected ? "border-green-500 text-white" : "bg-white text-gray-400"}`}
-                >
-                    {isSelected ? "✔" : ""}
-                </span>
-            </label>
+    useEffect(() => {
+        setTimeLeft(calculateTimeLeft());
 
-            {/* Link to Product Details Page */}
-            <Link to={`/product/${item.id}`} className="flex items-center">
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 60000); // Update exactly every minute
+
+        return () => clearInterval(timer);
+    }, [calculateTimeLeft]);
+
+    return (
+        <div
+            className={`flex items-start gap-4 p-4 rounded-lg transition-all mt-[5px]
+                ${isSelected ? "bg-blue-5 border-2 border-blue-2" : "bg-white border border-gray-200"}
+            `}
+        >
+            {/* Custom Checkbox */}
+            <button
+                onClick={() => handleSelection(item.id, !isSelected)}
+                className={`flex-shrink-0 w-6 h-6 rounded-md flex items-center justify-center mt-3 transition-all
+                    ${isSelected ? "bg-blue-500 border-blue-500" : "bg-white border-2 border-gray-300"}
+                `}
+                aria-label={isSelected ? "Deselect item" : "Select item"}
+            >
+                {isSelected && <FaCheck className="text-white text-xs" />}
+            </button>
+
+            {/* Product Image */}
+            <Link to={`/product/${item.id}`} className="flex-shrink-0">
                 <img
                     src={item.image}
                     alt={item.name}
-                    className="w-20 h-20 object-cover rounded-md border"
+                    className="w-24 h-24 object-cover rounded-lg shadow-sm hover:shadow-md transition-shadow"
                 />
             </Link>
 
-            {/* Product Details and Actions */}
-            <div className="flex-1">
-                {/* First Row: Product Name, Quantity Selector, Remove Button */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                    {/* Link for product name to navigate */}
-                    <Link to={`/product/${item.id}`} className="font-semibold text-lg text-gray-900 hover:underline">
+            {/* Product Details */}
+            <div className="flex-1 min-w-0">
+                {/* Top Row - Name and Actions */}
+                <div className="flex flex-col sm:flex-row justify-between gap-2">
+                    <Link
+                        to={`/product/${item.id}`}
+                        className="text-lg font-semibold text-gray-800 hover:text-blue-600 truncate"
+                        title={item.name}
+                    >
                         {item.name}
                     </Link>
 
                     <div className="flex items-center gap-3">
                         {/* Quantity Selector */}
-                        <div className="flex items-center border rounded-md">
+                        <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
                             <button
-                                onClick={(e) => {
-                                    e.stopPropagation(); // Prevent navigation
-                                    updateQuantity(item.id, Math.max(1, item.quantity - 1));
-                                }}
-                                className="px-3 py-1 bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-l"
+                                onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                                className="px-3 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+                                aria-label="Decrease quantity"
                             >
                                 −
                             </button>
-                            <span className="px-3">{item.quantity}</span>
+                            <span className="px-3 py-1 text-center min-w-[2rem]">{item.quantity}</span>
                             <button
-                                onClick={(e) => {
-                                    e.stopPropagation(); // Prevent navigation
-                                    updateQuantity(item.id, item.quantity + 1);
-                                }}
-                                className="px-3 py-1 bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-r"
+                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                className="px-3 py-1 bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+                                aria-label="Increase quantity"
                             >
                                 +
                             </button>
@@ -87,41 +91,57 @@ const CartItem = ({ item, updateQuantity, removeItem, handleSelection, isSelecte
 
                         {/* Remove Button */}
                         <button
-                            onClick={(e) => {
-                                e.stopPropagation(); // Prevent navigation
-                                removeItem(item.id);
-                            }}
-                            className="text-red-500 text-xl hover:text-red-700 ml-[35px]"
+                            onClick={() => removeItem(item.id)}
+                            className="p-2 text-gray-500 hover:text-red-500 transition-colors"
+                            aria-label="Remove item"
                         >
                             <FaTrashAlt />
                         </button>
                     </div>
                 </div>
 
-                {/* Second Row: Price, Added Date, Offer, Timer */}
-                <div className="flex flex-wrap items-center gap-2 mt-2">
+                {/* Price Information */}
+                <div className="mt-2 flex flex-wrap items-center gap-3">
+                    {/* Original Price (Strikethrough) */}
                     {item.originalPrice && (
-                        <p className="text-[20px] text-red-500 line-through">₹{item.originalPrice}</p>
+                        <span className="text-sm text-gray-500 line-through">₹{item.originalPrice}</span>
                     )}
-                    <p className="text-[28px] font-bold text-[green] shadow-md tracking-wide">
-                        ₹{item.price}
-                    </p>
 
-                    <p className="text-gray-400 text-xs">🗓️ Added: {item.addedDate}</p>
+                    {/* Discounted Price */}
+                    <span className="text-2xl font-extrabold text-orange-600 shadow-sm">
+                        ₹{item.price}
+                    </span>
+
+                    {/* Offer Badge */}
                     {item.offer && (
-                        <p className="text-green-600 text-sm font-medium flex items-center gap-1">
-                            <svg className="w-4 h-4 text-[#FF6B35]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21L12 17.77L5.82 21L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                            </svg>
+                        <span className="text-xs font-semibold bg-gradient-to-r from-green-400 to-green-600 text-white px-3 py-1 rounded-full shadow-md">
                             {item.offer} OFF
-                        </p>
-                    )}
-                    {item.offerEnd && (
-                        <p className="text-red-500 text-xs flex items-center gap-1">
-                            <FaClock /> {timeLeft}
-                        </p>
+                        </span>
                     )}
                 </div>
+
+
+                {/* Meta Information */}
+                <div className="mt-3 flex flex-wrap items-center gap-2 sm:gap-4 text-sm">
+                    {/* Added Date - Stacked in mobile, inline in desktop */}
+                    <span className="text-gray-600 bg-gray-100 px-3 py-1 rounded-md shadow-sm text-xs sm:text-sm w-full sm:w-auto text-center sm:text-left">
+                        🗓️ Added: <span className="font-semibold">{item.addedDate}</span>
+                    </span>
+
+                    {/* Offer Countdown - Adjusts for mobile */}
+                    {item.offerEnd && timeLeft && (
+                        <span
+                            className={`flex items-center gap-1 px-3 py-1 rounded-md shadow-sm text-xs sm:text-sm 
+                ${timeLeft === "Offer expired" ? "bg-red-100 text-red-600" : "bg-amber-100 text-amber-700"} 
+                w-full sm:w-auto justify-center sm:justify-start`}
+                            aria-live="polite"
+                        >
+                            <FaClock className="text-base sm:text-sm" />
+                            <span className="font-semibold">{timeLeft}</span>
+                        </span>
+                    )}
+                </div>
+
             </div>
         </div>
     );
