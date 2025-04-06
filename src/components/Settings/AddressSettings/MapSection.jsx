@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from 'react-leaflet';
 import { FiCrosshair } from 'react-icons/fi';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -44,6 +44,17 @@ const LocationMarker = ({ position, setPosition, setSelectedCoords }) => {
         }
     });
 
+    // This ensures the map moves when position changes from outside
+    const mapFly = useMap();
+    React.useEffect(() => {
+        if (position) {
+            mapFly.flyTo(position, mapFly.getZoom(), {
+                duration: 1,
+                easeLinearity: 0.25
+            });
+        }
+    }, [position, mapFly]);
+
     return position === null ? null : (
         <Marker position={position} icon={customIcon}>
             <Popup className="modern-popup">
@@ -71,10 +82,14 @@ export const MapSection = ({
     const handleUseLocation = async () => {
         try {
             await onUseLocation();
-            // Scroll to map if needed
-            const mapElement = document.querySelector('.map-container');
+            // Ensure map is visible on mobile
+            const mapElement = document.querySelector('.leaflet-container');
             if (mapElement) {
-                mapElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                mapElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                    inline: 'center'
+                });
             }
         } catch (error) {
             console.error("Error handling location:", error);
@@ -82,12 +97,16 @@ export const MapSection = ({
     };
 
     return (
-        <div className="flex-1 relative min-h-[300px] rounded-lg overflow-hidden border border-gray-200 shadow-sm map-container">
+        <div className="relative w-full h-[200px] rounded-lg overflow-hidden border border-gray-200 shadow-sm">
             <MapContainer
                 center={position}
                 zoom={15}
                 style={{ height: "100%", width: "100%", zIndex: 0 }}
-                whenCreated={mapInstance => { mapRef.current = mapInstance }}
+                whenCreated={mapInstance => {
+                    mapRef.current = mapInstance;
+                    // Store the map instance in window for debugging
+                    window.map = mapInstance;
+                }}
                 zoomControl={false}
             >
                 <TileLayer
@@ -121,6 +140,7 @@ export const MapSection = ({
                 disabled={isLocating}
                 className="absolute bottom-4 left-4 z-[1000] bg-white p-3 rounded-full shadow-md hover:bg-gray-50 transition-all flex items-center justify-center"
                 title="Find my location"
+                aria-label="Use my current location"
             >
                 {isLocating ? (
                     <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
@@ -137,6 +157,9 @@ export const MapSection = ({
                 .leaflet-control-attribution {
                     background: rgba(255,255,255,0.8) !important;
                     font-size: 11px !important;
+                }
+                .leaflet-container {
+                    min-height: 300px;
                 }
             `}</style>
         </div>

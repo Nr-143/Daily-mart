@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const FeaturedProducts = () => {
-    const [selectedProduct, setSelectedProduct] = useState(null);
     const navigate = useNavigate();
 
     const products = [
@@ -21,7 +20,7 @@ const FeaturedProducts = () => {
             {products.map((product) => (
                 <div
                     key={product.id}
-                    className="bg-white rounded-lg shadow-md p-4 hover:shadow-2xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden"
+                    className="bg-white rounded-lg shadow-md p-4 hover:shadow-2xl transform hover:scale-105 transition-all duration-300 cursor-pointer"
                     onClick={() => handleQuickView(product)}
                 >
                     {/* Product Image with Floating Price */}
@@ -50,16 +49,28 @@ const FeaturedProducts = () => {
                         ))}
                     </div>
 
-                    {/* Add to Cart Button */}
-                    <button
-                        className="bg-sunset-orange text-white mt-3 px-4 py-2 rounded-md hover:bg-orange-500 transition-all duration-300"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            console.log("Add to Cart Clicked");
-                        }}
-                    >
-                        Add to Cart
-                    </button>
+                    {/* Buttons with Proper Spacing */}
+                    <div className="flex gap-x-4 mt-3">
+                        <button
+                            className="bg-sunset-orange text-white px-4 py-2 rounded-md hover:bg-orange-500 transition-all duration-300 w-full"
+                            onClick={(e) => {
+                                e.stopPropagation(); // Prevent navigation
+                                console.log("Add to Cart Clicked");
+                            }}
+                        >
+                            Add to Cart
+                        </button>
+
+                        <button
+                            className="bg-midnight-blue text-white px-4 py-2 rounded-md hover:bg-electric-purple transition-all duration-300 w-full"
+                            onClick={(e) => {
+                                e.stopPropagation(); // Prevent navigation
+                                console.log("Buy clicked");
+                            }}
+                        >
+                            Buy
+                        </button>
+                    </div>
                 </div>
             ))}
         </div>

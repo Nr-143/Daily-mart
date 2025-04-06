@@ -59,7 +59,7 @@ const PrivacyPolicy = () => {
                 </div>
 
                 {/* Content with custom scrollbar */}
-                <div className="p- md:p-2 md:max-h-[500px] overflow-y-auto custom-scrollbar">
+                <div className="p- md:p-2 md:max-h-[77vh] overflow-y-auto custom-scrollbar">
                     {/* Introduction */}
                     <section className="mb-10">
                         <div className="flex items-start gap-4">

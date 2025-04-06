@@ -8,6 +8,8 @@ import WishlistPage from './pages/WishlistPage';
 import CartPage from "./pages/CartPage"
 import { WishlistProvider } from "./context/WishlistContext";
 import Settings from "./components/Settings/Settings";
+import MultiItemSelectionPage from './pages/MultiItemSelectionPage';
+import SellerDashboard from './pages/seller/sellerDashboard';
 
 
 const App = () => {
@@ -24,6 +26,8 @@ const App = () => {
                 <Route path="/product/:id" element={<ProductDetailsPage />} />
                 <Route path="/category/:category" element={<ProductListingPage />} />
                 <Route path="/wishlist" element={<WishlistPage />} />
+                <Route path="/multiProductSelection" element={<MultiItemSelectionPage />} />
+                <Route path="/seller" element={<SellerDashboard />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/settings" element={<Settings />} />
                 {/* <Route path="/login" element={<Login />} />           */}

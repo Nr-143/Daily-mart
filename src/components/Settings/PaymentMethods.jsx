@@ -44,8 +44,7 @@ const PaymentDetailsPage = () => {
 
             {/* Container with fixed height and custom scrollbar */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden">
-                <div className="h-[800px] md:h-[485px] overflow-y-auto custom-scrollbar p-6 md:p-8">
-                    {/* Payment Process Section */}
+                <div className="h-[calc(100vh-180px)] md:h-[60vh] lg:h-[70vh] xl:h-[80vh] overflow-y-auto custom-scrollbar p-4 sm:p-6 md:p-8">                    {/* Payment Process Section */}
                     <section className="mb-12">
                         <div className="flex items-start mb-6">
                             <div className="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-4">

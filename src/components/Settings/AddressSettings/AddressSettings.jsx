@@ -14,7 +14,6 @@ const AddressSettings = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [mapPosition, setMapPosition] = useState([51.505, -0.09]);
-    const [isMapVisible, setIsMapVisible] = useState(false);
     const [loadingGeo, setLoadingGeo] = useState(false);
     const [selectedCoords, setSelectedCoords] = useState(null);
     const [reverseGeocoding, setReverseGeocoding] = useState(null);
@@ -54,9 +53,18 @@ const AddressSettings = () => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;
-                setMapPosition([latitude, longitude]);
+                const newPosition = [latitude, longitude];
+                setMapPosition(newPosition);
                 setSelectedCoords({ latitude, longitude });
-                setIsMapVisible(true);
+
+                // Fly to the new position
+                if (mapRef.current) {
+                    mapRef.current.flyTo(newPosition, 15, {
+                        duration: 1,
+                        easeLinearity: 0.25
+                    });
+                }
+
                 reverseGeocode(latitude, longitude);
                 setIsLocating(false);
             },
@@ -84,7 +92,14 @@ const AddressSettings = () => {
                 const coords = [parseFloat(lat), parseFloat(lon)];
                 setMapPosition(coords);
                 setSelectedCoords({ latitude: coords[0], longitude: coords[1] });
-                setIsMapVisible(true);
+
+                // Fly to the new position
+                if (mapRef.current) {
+                    mapRef.current.flyTo(coords, 15, {
+                        duration: 1,
+                        easeLinearity: 0.25
+                    });
+                }
 
                 const addressParts = display_name.split(', ');
                 setReverseGeocoding({
@@ -165,10 +180,18 @@ const AddressSettings = () => {
 
     const handleViewOnMap = (address) => {
         if (address.coordinates) {
-            setMapPosition([address.coordinates.latitude, address.coordinates.longitude]);
+            const newPosition = [address.coordinates.latitude, address.coordinates.longitude];
+            setMapPosition(newPosition);
             setSelectedCoords(address.coordinates);
             setReverseGeocoding(address.reverseGeocoding || null);
-            setIsMapVisible(true);
+
+            // Fly to the new position
+            if (mapRef.current) {
+                mapRef.current.flyTo(newPosition, 15, {
+                    duration: 1,
+                    easeLinearity: 0.25
+                });
+            }
         } else {
             geocodeAddress(`${address.street}, ${address.city}, ${address.country}`);
         }
@@ -220,10 +243,6 @@ const AddressSettings = () => {
         }
     };
 
-    const toggleMapVisibility = () => {
-        setIsMapVisible(!isMapVisible);
-    };
-
     const handleMapClick = async (coords) => {
         setSelectedCoords(coords);
         await reverseGeocode(coords.latitude, coords.longitude);
@@ -231,28 +250,28 @@ const AddressSettings = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto p-2 sm:p-4 h-[calc(100vh-4rem)] md:h-[594px] overflow-hidden relative">
+        <div className="w-full max-w-[95vw] md:max-w-[90vw] lg:max-w-[85vw] xl:max-w-[80vw] mx-auto p-[0.5rem] sm:p-[1rem] h-[calc(100dvh-4rem)] overflow-hidden relative">
             <div className="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full border border-gray-100">
-                {/* Header */}
-                <div className="p-2 border-b border-gray-200 bg-gray-50">
-                    <div className="flex justify-between items-center">
-                        <div>
-                            <h1 className="text-xl sm:text-2xl font-semibold text-gray-800 flex items-center gap-2">
-                                <FiMapPin className="text-blue-500" />
-                                My Addresses
-                            </h1>
-                            <p className="text-sm text-gray-500 mt-1 hidden sm:block">
-                                {addresses.length} saved {addresses.length === 1 ? 'address' : 'addresses'}
-                            </p>
-                        </div>
+                {/* Map Section - Always visible at top */}
+                <div className="md-h-[30dvh] md:min-h-[200px] border-b border-gray-200">
+                    <MapSection
+                        position={mapPosition}
+                        setPosition={setMapPosition}
+                        setSelectedCoords={handleMapClick}
+                        onUseLocation={handleGetCurrentLocation}
+                        isLocating={isLocating}
+                        mapRef={mapRef}
+                    />
+                </div>
 
-                        <div className="flex gap-2">
-                            <button
-                                onClick={toggleMapVisibility}
-                                className="md:hidden p-2 text-gray-600 hover:text-gray-800 rounded-full hover:bg-gray-100 transition-colors"
-                            >
-                                <FiMapPin size={20} />
-                            </button>
+                {/* Address List - Scrollable area below map */}
+                <div className="flex-1 overflow-y-auto">
+                    <div className="p-1 border-b border-gray-200 bg-gray-50 sticky top-0 z-10">
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                                <FiMapPin className="text-blue-500" />
+                                Saved Addresses ({addresses.length})
+                            </h2>
                             <button
                                 onClick={toggleForm}
                                 className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2 text-sm"
@@ -261,78 +280,48 @@ const AddressSettings = () => {
                                 {isFormOpen ? 'Cancel' : 'Add New'}
                             </button>
                         </div>
+
+                        {/* Search and Status */}
+                        <div className="mt-3">
+                            <StatusMessages
+                                error={error}
+                                successMessage={successMessage}
+                                defaultAddressIndex={defaultAddressIndex}
+                                addresses={addresses}
+                                onClearError={() => setError(null)}
+                                onClearSuccess={() => setSuccessMessage(null)}
+                            />
+                        </div>
                     </div>
 
-                    {/* Search and Status */}
-                    <div className="mt-3">
-                        <StatusMessages
-                            error={error}
-                            successMessage={successMessage}
-                            defaultAddressIndex={defaultAddressIndex}
-                            addresses={addresses}
-                            onClearError={() => setError(null)}
-                            onClearSuccess={() => setSuccessMessage(null)}
-                        />
-                    </div>
-                </div>
-
-                {/* Main Content */}
-                <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
-                    {/* Map Section - First in DOM but appears on top in mobile due to flex-col-reverse */}
-                    <div className={`${isMapVisible ? 'flex' : 'hidden'} md:flex md:w-1/2 flex-col border-t md:border-t-0 md:border-l border-gray-200`}>
-                        <MapSection
-                            position={mapPosition}
-                            setPosition={setMapPosition}
-                            setSelectedCoords={handleMapClick}
-                            onUseLocation={handleGetCurrentLocation}
-                            isLocating={isLocating}
-                            mapRef={mapRef}
-                        />
-                    </div>
-
-                    {/* Address List */}
-                    <div className="flex-1 overflow-y-auto">
-                        <AddressList
-                            filteredAddresses={filteredAddresses}
-                            defaultAddressIndex={defaultAddressIndex}
-                            isFormOpen={isFormOpen}
-                            searchTerm={searchTerm}
-                            onEdit={(index) => {
-                                setEditingIndex(index);
-                                setIsFormOpen(true);
-                                if (addresses[index].coordinates) {
-                                    handleViewOnMap(addresses[index]);
-                                }
-                            }}
-                            onViewOnMap={handleViewOnMap}
-                            onDelete={handleDeleteAddress}
-                            onSetDefault={handleSetDefaultAddress}
-                            loadingGeo={loadingGeo}
-                            toggleForm={toggleForm}
-                            AddressFormWrapper={() => (
-                                <AddressFormWrapper
-                                    onAddAddress={handleAddAddress}
-                                    addressToEdit={editingIndex !== null ? addresses[editingIndex] : null}
-                                    onCancelEdit={toggleForm}
-                                    selectedCoords={selectedCoords}
-                                    reverseGeocoding={reverseGeocoding}
-                                    onGeocode={geocodeAddress}
-                                    loadingGeo={loadingGeo}
-                                />
-                            )}
-                        />
-                    </div>
-                </div>
-
-                {/* Mobile map toggle */}
-                <div className="md:hidden p-3 border-t border-gray-200 mb-[20px]">
-                    <button
-                        onClick={toggleMapVisibility}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 text-gray-800 rounded transition-colors"
-                    >
-                        <FiMapPin size={16} />
-                        {isMapVisible ? 'Hide Map' : 'Show Map'}
-                    </button>
+                    <AddressList
+                        filteredAddresses={filteredAddresses}
+                        defaultAddressIndex={defaultAddressIndex}
+                        isFormOpen={isFormOpen}
+                        searchTerm={searchTerm}
+                        onEdit={(index) => {
+                            setEditingIndex(index);
+                            setIsFormOpen(true);
+                            if (addresses[index].coordinates) {
+                                handleViewOnMap(addresses[index]);
+                            }
+                        }}
+                        onViewOnMap={handleViewOnMap}
+                        onDelete={handleDeleteAddress}
+                        onSetDefault={handleSetDefaultAddress}
+                        toggleForm={toggleForm}
+                        AddressFormWrapper={() => (
+                            <AddressFormWrapper
+                                onAddAddress={handleAddAddress}
+                                addressToEdit={editingIndex !== null ? addresses[editingIndex] : null}
+                                onCancelEdit={toggleForm}
+                                selectedCoords={selectedCoords}
+                                reverseGeocoding={reverseGeocoding}
+                                onGeocode={geocodeAddress}
+                                loadingGeo={loadingGeo}
+                            />
+                        )}
+                    />
                 </div>
             </div>
         </div>

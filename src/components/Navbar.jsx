@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
     FaShoppingCart, FaHeart, FaSignInAlt, FaUserCog,
-    FaHome, FaClipboardList, FaSearch
+    FaHome, FaClipboardList, FaSearch, FaStore
 } from "react-icons/fa";
 
 const Navbar = ({ setSearchQuery, isLoggedIn }) => {
@@ -64,7 +64,7 @@ const Navbar = ({ setSearchQuery, isLoggedIn }) => {
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex space-x-10 items-center">
-                    {["Home", "Products", "Wishlist", "Cart"].map((item, index) => (
+                    {["Home", "Products", "Wishlist", "Cart","seller"].map((item, index) => (
                         <Link
                             key={index}
                             to={`/${item.toLowerCase() === "home" ? "" : item.toLowerCase()}`}
@@ -125,7 +125,9 @@ const Navbar = ({ setSearchQuery, isLoggedIn }) => {
                     { icon: FaHome, label: "Home", path: "/" },
                     { icon: FaClipboardList, label: "Products", path: "/products" },
                     { icon: FaShoppingCart, label: "Cart", path: "/cart" },
-                    { icon: FaHeart, label: "Wishlist", path: "/wishlist" }
+                    { icon: FaHeart, label: "Wishlist", path: "/wishlist" },
+                    { icon: FaStore, label: "Seller", path: "/seller" }
+
                 ].map(({ icon: Icon, label, path }, index) => (
                     <Link
                         key={index}
