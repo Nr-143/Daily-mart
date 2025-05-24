@@ -2,31 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Hide scrollbar for WebKit browsers */
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
 
-/* Hide scrollbar for Firefox */
 .scrollbar-hide {
     scrollbar-width: none;
 }
-/* Hide scrollbar globally for the entire page */
 html, body {
     overflow: hidden;
 }
 
-/* If you want scrolling but no scrollbar */
 html, body {
     overflow: auto;
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    scrollbar-width: none; 
 }
 
-/* Hide scrollbar for WebKit browsers (Chrome, Safari, Edge) */
 html::-webkit-scrollbar, body::-webkit-scrollbar {
     display: none;
 }
-/* * Modern E-Commerce Scrollbar - DailyMart */ */
 .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -69,7 +63,6 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
     scrollbar-color: rgba(106, 13, 173, 0.8) rgba(245, 245, 245, 0.9);
 }
 
-/* Micro-interactions */
 .custom-scrollbar::-webkit-scrollbar-thumb:active {
     background: linear-gradient(
         to bottom,
@@ -79,7 +72,6 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
     transform: scaleX(1.15);
 }
 
-/* Smooth appear animation */
 @keyframes smooth-scrollbar {
     from { opacity: 0; transform: scaleX(0.8); }
     to { opacity: 1; transform: scaleX(1); }
