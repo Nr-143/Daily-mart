@@ -8,8 +8,10 @@ import RevenueGraph from '../../components/seller/Revenue/RevenueGraph';
 
 const tabs = [
     { key: 'overview', label: 'Overview' },
-    { key: 'products', label: 'My Products' },
-    { key: 'revenue', label: 'Revenue Report' },
+    { key: 'products', label: 'Products' },
+    { key: 'revenue', label: 'Revenue' }, 
+    { key: 'Enqueries', label: 'Enqueries' }, 
+
 ];
 
 const SellerDashboard = () => {
@@ -21,8 +23,6 @@ const SellerDashboard = () => {
                 return (
                     <>
                         <TotalStatsCards />
-                        <RevenueGraph />
-                        <ReviewsStats />
                     </>
                 );
             case 'products':
