@@ -43,11 +43,11 @@ const MultiItemSelectionPage = () => {
 
     useEffect(() => {
         fetchProducts();
-    }, []);
+    }, [fetchProducts]);
 
     useEffect(() => {
         filterProducts();
-    }, [filters, searchQuery, products]);
+    }, [filters, searchQuery, products, filterProducts]);
 
     const filterProducts = () => {
         const filtered = products.filter(product => {

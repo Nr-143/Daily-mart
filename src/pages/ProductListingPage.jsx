@@ -110,7 +110,7 @@ const ProductListingPage = ({ searchQuery }) => {
         // Add debounce for real API calls
         const debounceTimer = setTimeout(loadData, 300);
         return () => clearTimeout(debounceTimer);
-    }, [searchQuery, category, filters]);
+    }, [searchQuery, category, filters, fetchProducts]);
 
     const resetFilters = () => {
         setFilters({
