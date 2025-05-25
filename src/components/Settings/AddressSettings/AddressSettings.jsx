@@ -3,7 +3,7 @@ import { MapSection } from "./MapSection";
 import { AddressList } from "./AddressList";
 import { StatusMessages } from "./StatusMessages";
 import { AddressFormWrapper } from "./AddressFormWrapper";
-import { FiSearch, FiPlus, FiX, FiMapPin } from "react-icons/fi";
+import { FiPlus, FiX, FiMapPin } from "react-icons/fi";
 import axios from 'axios';
 
 const AddressSettings = () => {
@@ -11,13 +11,13 @@ const AddressSettings = () => {
     const [addresses, setAddresses] = useState([]);
     const [editingIndex, setEditingIndex] = useState(null);
     const [defaultAddressIndex, setDefaultAddressIndex] = useState(null);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm] = useState("");
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [mapPosition, setMapPosition] = useState([51.505, -0.09]);
     const [loadingGeo, setLoadingGeo] = useState(false);
     const [selectedCoords, setSelectedCoords] = useState(null);
     const [reverseGeocoding, setReverseGeocoding] = useState(null);
-    const [isReverseLoading, setIsReverseLoading] = useState(false);
+    const [setIsReverseLoading] = useState(false);
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [isLocating, setIsLocating] = useState(false);

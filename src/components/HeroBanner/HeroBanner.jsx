@@ -2,10 +2,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { motion } from "framer-motion";
-import shoppingDiscuss from "../../assets/shoppingDiscuss.png";
-import exchange from "../../assets/exchange.png";
-import personWithProduct from "../../assets/personwithProduct2.png";
-
 const HeroBanner = () => {
     const slides = [
         {
