@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiUser, FiCamera, FiCheck, FiX, FiEdit, FiLock, FiMail, FiPhone, FiCalendar, FiChevronDown } from "react-icons/fi";
+import { FiUser, FiCamera, FiCheck, FiX, FiEdit, FiLock, FiMail, FiChevronDown } from "react-icons/fi";
 
 const AccountSettings = () => {
     const [user, setUser] = useState({

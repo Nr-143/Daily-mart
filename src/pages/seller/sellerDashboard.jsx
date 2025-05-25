@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import MobileSafeWrapper from '../../components/MobileSafeWrapper';
 import TotalStatsCards from '../../components/seller/Summary/TotalStatsCards';
-import ReviewsStats from '../../components/seller/Summary/ReviewsStats';
 import AddedProductsList from '../../components/seller/Products/AddedProductsList';
 import RevenueGraph from '../../components/seller/Revenue/RevenueGraph';
 

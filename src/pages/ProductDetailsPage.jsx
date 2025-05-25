@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
     FaShippingFast,
-    FaClipboardList
 } from "react-icons/fa";
 import LoaderWithMessage from "../components/Loader/LoaderWithMessage.jsx"; // Adjust the path based on your folder structure
 

@@ -4,7 +4,7 @@ import {
     LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid,
     Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell
 } from 'recharts';
-import { FiFilter, FiDollarSign, FiTrendingUp, FiTrendingDown } from 'react-icons/fi';
+import {  FiTrendingUp, FiTrendingDown } from 'react-icons/fi';
 
 // Sample data - replace with API data
 const revenueData = {
@@ -28,7 +28,7 @@ const revenueData = {
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const RevenueGraph = () => {
-    const [timeRange, setTimeRange] = useState('daily');
+    const [setTimeRange] = useState('daily');
     const [activeTab, setActiveTab] = useState('revenue');
 
     return (

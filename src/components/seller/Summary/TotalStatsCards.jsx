@@ -12,7 +12,6 @@ import {
     FiStar,
     FiClock
 } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
 
 const TotalStatsCards = () => {
     const stats = [
