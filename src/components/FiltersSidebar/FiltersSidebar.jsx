@@ -143,8 +143,8 @@ const FiltersSidebar = ({ filters = {}, setFilters }) => {
     ];
 
     return (
-        <div className="filters-sidebar">
-            <h3 className="text-lg font-semibold mb-4 mt-10">Filters</h3>
+        <div className="filters-sidebar custom-scrollbar mt-10">
+            <h3 className="text-lg font-semibold mt-[-10px] ">Filters</h3>
 
             {/* Category Filter */}
             <CustomDropdown

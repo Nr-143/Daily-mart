@@ -6,17 +6,15 @@
     padding: 1.5rem;
     width: 100%;
     max-width: 16rem; /* Adjust width as needed */
-    max-height: 100vh; /* Set maximum height to 90% of viewport height */
+    max-height: 90vh; /* Set maximum height to 90% of viewport height */
     overflow-y: auto; /* Enable vertical scrollbar */
     position: sticky;
-    top: 1rem; /* Stick to the top with some margin */
 }
 
 .filters-sidebar h3 {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    margin-top: 2.5rem; /* Adjust top margin for spacing */
 }
 
 /* Optional: Style the scrollbar */

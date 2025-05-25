@@ -2,7 +2,7 @@ import React from "react";
 
 const SortDropdown = ({ sort, setSort }) => {
     return (
-        <div className="flex flex-wrap items-center gap-2 md:gap-3 mt-[40px]">
+        <div className="flex flex-wrap items-center gap-2 md:gap-3 mt-[20px]">
             {/* Sort Label */}
             {/* <label className="text-gray-900 font-semibold whitespace-nowrap">
                 Sort By:

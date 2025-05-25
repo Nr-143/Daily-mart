@@ -10,15 +10,16 @@ import booksImg from "../../assets/Books.jpg";
 import toysImg from "../../assets/toys1.jpg";
 
 const categories = [
-    { name: 'Groceries', image: Groceries, path: '/groceries' },
-    { name: 'Clothes', image: clothesImg, path: '/clothes' },
-    { name: 'Electronics', image: electronicsImg, path: '/electronics' },
-    { name: 'Footwear', image: footwearImg, path: '/footwear' },
-    { name: 'Beauty', image: beautyImg, path: '/beauty' },
-    { name: 'Home Appliances', image: homeImg, path: '/home-appliances' },
-    { name: 'Books', image: booksImg, path: '/books' },
-    { name: 'Toys', image: toysImg, path: '/toys' },
+    { name: 'Groceries', image: Groceries, path: '/category/groceries' },
+    { name: 'Clothes', image: clothesImg, path: '/category/clothing' },
+    { name: 'Electronics', image: electronicsImg, path: '/category/electronics' },
+    { name: 'Footwear', image: footwearImg, path: '/category/footwear' },
+    { name: 'Beauty', image: beautyImg, path: '/category/beauty' },
+    { name: 'Home Appliances', image: homeImg, path: '/category/home-appliances' },
+    { name: 'Books', image: booksImg, path: '/category/books' },
+    { name: 'Toys', image: toysImg, path: '/category/toys' },
 ];
+
 
 const CategoryCards = () => {
     return (
