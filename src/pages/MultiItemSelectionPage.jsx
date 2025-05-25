@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FiFilter, FiShoppingCart, FiSearch } from 'react-icons/fi';
 import ProductCard from '../components/MultiItemSelection/ProductCard';
 import FiltersSidebar from '../components/MultiItemSelection/FiltersSidebar';
@@ -29,7 +29,7 @@ const MultiItemSelectionPage = () => {
         { id: 8, name: 'Avocados', category: 'fruits', price: 1.99, originalPrice: 2.49, discount: 20, image: 'https://images.unsplash.com/photo-1519098901909-b1553a1190af', dietary: [] },
     ];
 
-    const fetchProducts = async () => {
+    const fetchProducts = useCallback(async () => {
         setLoading(true);
         try {
             await new Promise(resolve => setTimeout(resolve, 300));
@@ -39,7 +39,7 @@ const MultiItemSelectionPage = () => {
             console.error('Failed to fetch products', err);
         }
         setLoading(false);
-    };
+    }, []); 
 
     useEffect(() => {
         fetchProducts();
